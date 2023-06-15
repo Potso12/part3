@@ -13,13 +13,13 @@ app.get('/api/persons', (req, res, next) => {
   Person.find({}).then(people => {
     res.json(people)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.get('/info', (req, res) => {
-  
-    const currentTime = new Date();
-    Person.estimatedDocumentCount()
+
+  const currentTime = new Date()
+  Person.estimatedDocumentCount()
     .then(count => {
       res.send(`<p>Phonebook has info for ${count} people</p><p>${currentTime}</p>`)
     })
@@ -31,32 +31,32 @@ app.post('/api/persons', (request, response, next) => {
   console.log(request.body)
 
   if (!request.body.name || !request.body.number) {
-    console.log("tää paska ei toimi")
-    return response.status(400).json({ 
-      error: 'name or number missing' 
-    })  
-  } 
-  Person.findOne({ name: request.body.name}).then(person => {
+    console.log('tää paska ei toimi')
+    return response.status(400).json({
+      error: 'name or number missing'
+    })
+  }
+  Person.findOne({ name: request.body.name }).then(person => {
     if(person){
-      console.log("ei oo uniikki")
-      return response.status(400).json({ 
-        error: 'name must be unique' 
-   })
+      console.log('ei oo uniikki')
+      return response.status(400).json({
+        error: 'name must be unique'
+      })
     } else {
-      console.log("ollaan jo tekemässä uutta henkilöö")
+      console.log('ollaan jo tekemässä uutta henkilöö')
       const newPerson = new Person({
         name: request.body.name,
         number: request.body.number
       })
-    
+
       newPerson.save()
-      .then(savedPerson => {
-        console.log('person saved')
-        response.json(savedPerson)
-      })
-      .catch(error => next(error))
+        .then(savedPerson => {
+          console.log('person saved')
+          response.json(savedPerson)
+        })
+        .catch(error => next(error))
     }
-  }).catch(error => next(error));
+  }).catch(error => next(error))
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
@@ -92,9 +92,9 @@ app.delete('/api/persons/:id', (request, response, next) => {
 
 
   console.log(request.params.id)
-  Person.deleteOne({_id: request.params.id})
-  .then(() => console.log('delete from database success'))
-  .catch(error => next(error))
+  Person.deleteOne({ _id: request.params.id })
+    .then(() => console.log('delete from database success'))
+    .catch(error => next(error))
 })
 
 const errorHandler = (error, request, response, next) => {

@@ -10,22 +10,22 @@ console.log('connecting to', url)
 
 mongoose.connect(url)
 
-  .then(result => {
+  .then(() => {
     console.log('connected to MongoDB')
   })
   .catch((error) => {
     console.log('error connecting to MongoDB:', error.message)
   })
 
-  const phoneNumberValidator = (value) => {
-    // Regular expression pattern to match valid phone numbers
-    const pattern = /^\d{2,3}-\d+$/;
-  
-    // Test the value against the pattern
-    console.log(pattern.test(value))
-    return pattern.test(value);
-  };
-  
+const phoneNumberValidator = (value) => {
+  // Regular expression pattern to match valid phone numbers
+  const pattern = /^\d{2,3}-\d+$/
+
+  // Test the value against the pattern
+  console.log(pattern.test(value))
+  return pattern.test(value)
+}
+
 
 const personSchema = new mongoose.Schema({
   id: String,
